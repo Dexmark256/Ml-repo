@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday My Love ❤️</title>
 
-  <!-- EVERYTHING IS INLINE SO IT WORKS EVERYWHERE -->
+  <!-- ALL INLINE: WORKS PERFECTLY ON GITHUB PAGES -->
   <style>
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      background: radial-gradient(circle at top, #ff9ab8, #ff5e8a);
       color: #fff;
       text-align: center;
       overflow-x: hidden;
@@ -23,52 +23,74 @@
       align-items: center;
       justify-content: center;
       padding: 30px 20px;
+      animation: fadeIn 1.2s ease both;
     }
 
-    h1 { font-size: 2.5rem; }
+    h1 { font-size: 2.6rem; }
     h2 { font-size: 2rem; margin-bottom: 10px; }
-    p  { max-width: 700px; line-height: 1.7; font-size: 1.05rem; }
+    p  { max-width: 720px; line-height: 1.7; font-size: 1.05rem; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     .card {
-      background: rgba(255,255,255,0.15);
-      border-radius: 20px;
-      padding: 30px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 22px;
+      padding: 32px;
       margin-top: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+      animation: cardFloat 3.5s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-8px); }
     }
 
     button {
       margin-top: 20px;
-      padding: 14px 30px;
+      padding: 14px 34px;
       border: none;
       border-radius: 40px;
       font-size: 1rem;
       background: #fff;
       color: #ff4f7a;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    button:hover { transform: scale(1.05); }
+    button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
 
     .heart {
-      font-size: 4rem;
-      animation: pulse 1.5s infinite;
+      font-size: 4.2rem;
       margin: 20px 0;
+      animation: heartbeat 1.6s infinite;
     }
 
-    @keyframes pulse {
+    @keyframes heartbeat {
       0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+      30% { transform: scale(1.25); }
+      60% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
 
     .quiz-btn {
       display: block;
       width: 100%;
-      margin: 10px 0;
-      background: rgba(255,255,255,0.85);
+      margin: 12px 0;
+      background: rgba(255,255,255,0.9);
       color: #ff4f7a;
+      animation: popIn 0.6s ease both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
     }
 
     footer {
@@ -77,117 +99,77 @@
       opacity: 0.9;
     }
 
+    /* FLOATING HEARTS */
     .floating-heart {
       position: fixed;
       bottom: -40px;
       font-size: 22px;
-      animation: floatUp 6s linear infinite;
-      opacity: 0.8;
+      animation: floatUp 6.5s linear forwards;
+      opacity: 0.85;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
-      from { transform: translateY(0); opacity: 0.8; }
-      to { transform: translateY(-120vh); opacity: 0; }
+      from { transform: translateY(0) scale(0.8); opacity: 0.9; }
+      to { transform: translateY(-120vh) scale(1.4); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="those-eyes.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
-
-  <!-- Manual Music Button (fallback) -->
-  <button id="musicBtn" onclick="toggleMusic()" style="position:fixed;bottom:20px;right:20px;z-index:999;border-radius:50px;padding:12px 18px;border:none;background:#fff;color:#ff4f7a;font-weight:bold;">🔊 Play Music</button>
-
-
   <!-- HERO -->
-  <section>
+  <section id="hero">
     <h1>Happy Birthday My Love 🎂</h1>
     <div class="heart">❤️</div>
     <p>Today is all about celebrating YOU — the girl who makes my world brighter every single day.</p>
-    <button onclick="startMusic(); nextSection(1)">Start the Surprise 💝</button>
+    <button onclick="nextSection(1)">Start the Surprise 💝</button>
   </section>
 
   <!-- STORY -->
-  <section style="display:none" id="sec1">
+  <section id="sec1" style="display:none">
     <div class="card">
       <h2>From Dante 💌</h2>
-      <p>
-        Meeting you changed my life in the best way possible. Your smile, your laugh,
-        your heart — everything about you feels like home to me.
-      </p>
+      <p>Meeting you changed my life in the most beautiful way. You are my calm, my happiness, and my favorite place to be.</p>
       <button onclick="nextSection(2)">Continue ✨</button>
     </div>
   </section>
 
   <!-- QUIZ 1 -->
-  <section style="display:none" id="sec2">
+  <section id="sec2" style="display:none">
     <div class="card">
-      <h2>Fun Love Quiz 💕</h2>
-      <p>How much do you think Dante loves you?</p>
-      <button class="quiz-btn" onclick="quizAnswer('Correct 😍 Infinity & beyond!')">A little</button>
-      <button class="quiz-btn" onclick="quizAnswer('Wrong 😘 Try again!')">Normal amount</button>
+      <h2>Love Quiz 💕</h2>
+      <p>How much does Dante love you?</p>
       <button class="quiz-btn" onclick="quizAnswer('Correct 😍 Infinity & beyond!')">More than words</button>
+      <button class="quiz-btn" onclick="quizAnswer('Wrong 😘 Try again!')">A normal amount</button>
+      <button class="quiz-btn" onclick="quizAnswer('Correct 😍 Infinity & beyond!')">To the moon & back</button>
     </div>
   </section>
 
   <!-- QUIZ 2 -->
-  <section style="display:none" id="sec3">
+  <section id="sec3" style="display:none">
     <div class="card">
-      <h2>Another One 😏</h2>
-      <p>Who is Dante's favorite person?</p>
-      <button class="quiz-btn" onclick="quizAnswer('Obviously YOU ❤️')">You</button>
-      <button class="quiz-btn" onclick="quizAnswer('Nice try 😌')">Food</button>
-      <button class="quiz-btn" onclick="quizAnswer('Nope 😆')">Sleep</button>
+      <h2>Just One More 😏</h2>
+      <p>Who owns Dante’s heart?</p>
+      <button class="quiz-btn" onclick="quizAnswer('Always YOU ❤️')">You</button>
+      <button class="quiz-btn" onclick="quizAnswer('Nice try 😆')">Food</button>
+      <button class="quiz-btn" onclick="quizAnswer('Nope 😜')">Sleep</button>
     </div>
   </section>
 
   <!-- FINAL -->
-  <section style="display:none" id="sec4">
+  <section id="sec4" style="display:none">
     <div class="card">
       <h2>You Made It 💖</h2>
-      <p>
-        I hope this little surprise made you smile.
-        I promise to keep choosing you, loving you,
-        and standing by you — today and always.
-      </p>
+      <p>I hope this surprise made you smile. I promise to keep loving you, choosing you, and standing by you — always.</p>
       <h2>Happy Birthday My Queen 👑</h2>
       <p>Forever yours,<br><strong>Dante ❤️</strong></p>
       <button onclick="finalSurprise()">Final Surprise 🎁</button>
     </div>
   </section>
 
-  <footer>
-    Made with love ❤️ by Dante
-  </footer>
+  <footer>Made with endless love ❤️ by Dante</footer>
 
   <script>
-    const music = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicBtn');
-
-    function startMusic() {
-      music.volume = 0.6;
-      music.play().then(() => {
-        musicBtn.innerText = '⏸ Pause Music';
-      }).catch(() => {
-        // fallback — user must tap play button
-      });
-    }
-
-    function toggleMusic() {
-      if (music.paused) {
-        music.volume = 0.6;
-        music.play();
-        musicBtn.innerText = '⏸ Pause Music';
-      } else {
-        music.pause();
-        musicBtn.innerText = '🔊 Play Music';
-      }
-    });
-    }
     let current = 0;
 
     function nextSection(n) {
@@ -203,7 +185,7 @@
     }
 
     function finalSurprise() {
-      alert("I love you endlessly. Happy Birthday my love ❤️ — From Dante");
+      alert('I love you endlessly. Happy Birthday ❤️ — From Dante');
     }
 
     function createHeart() {
@@ -212,12 +194,11 @@
       h.innerText = '❤️';
       h.style.left = Math.random() * 100 + 'vw';
       document.body.appendChild(h);
-      setTimeout(() => h.remove(), 6000);
+      setTimeout(() => h.remove(), 6500);
     }
 
-    setInterval(createHeart, 700);
+    setInterval(createHeart, 600);
   </script>
 
 </body>
-  </html>
-                                                                                                     
+</html>
