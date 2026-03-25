@@ -1,204 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday My Love ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Just for you 😈</title>
+<style>
+body {
+    background: radial-gradient(circle at top, #1e0033, #000);
+    color: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
 
-  <!-- ALL INLINE: WORKS PERFECTLY ON GITHUB PAGES -->
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: radial-gradient(circle at top, #ff9ab8, #ff5e8a);
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
-    }
+h1 {
+    color: #ff4dff;
+    text-shadow: 0 0 15px #ff4dff;
+    animation: pulse 2s infinite;
+}
 
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 20px;
-      animation: fadeIn 1.2s ease both;
-    }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
 
-    h1 { font-size: 2.6rem; }
-    h2 { font-size: 2rem; margin-bottom: 10px; }
-    p  { max-width: 720px; line-height: 1.7; font-size: 1.05rem; }
+.card {
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 20px;
+    width: 85%;
+    box-shadow: 0 0 20px rgba(255,77,255,0.3);
+    transition: transform 0.3s;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+}
 
-    .card {
-      background: rgba(255,255,255,0.18);
-      border-radius: 22px;
-      padding: 32px;
-      margin-top: 20px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.25);
-      animation: cardFloat 3.5s ease-in-out infinite;
-    }
+button {
+    background: linear-gradient(45deg, #ff4dff, #00ffff);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px;
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+}
 
-    @keyframes cardFloat {
-      0%,100% { transform: translateY(0); }
-      50%     { transform: translateY(-8px); }
-    }
+button:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px #00ffff;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 14px 34px;
-      border: none;
-      border-radius: 40px;
-      font-size: 1rem;
-      background: #fff;
-      color: #ff4f7a;
-      cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+img {
+    width: 220px;
+    border-radius: 20px;
+    margin-top: 10px;
+    box-shadow: 0 0 15px #ff4dff;
+    transition: 0.3s;
+}
 
-    button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
-    }
+img:hover {
+    transform: scale(1.1) rotate(-2deg);
+}
 
-    .heart {
-      font-size: 4.2rem;
-      margin: 20px 0;
-      animation: heartbeat 1.6s infinite;
-    }
+.progress {
+    width: 80%;
+    background: #333;
+    border-radius: 20px;
+    margin: 10px auto;
+}
 
-    @keyframes heartbeat {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.25); }
-      60% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+.progress-bar {
+    height: 10px;
+    width: 0%;
+    background: linear-gradient(90deg, #ff4dff, #00ffff);
+    border-radius: 20px;
+    transition: width 0.5s;
+}
 
-    .quiz-btn {
-      display: block;
-      width: 100%;
-      margin: 12px 0;
-      background: rgba(255,255,255,0.9);
-      color: #ff4f7a;
-      animation: popIn 0.6s ease both;
-    }
+.hidden { display: none; }
 
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    footer {
-      padding: 20px;
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    /* FLOATING HEARTS */
-    .floating-heart {
-      position: fixed;
-      bottom: -40px;
-      font-size: 22px;
-      animation: floatUp 6.5s linear forwards;
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(0) scale(0.8); opacity: 0.9; }
-      to { transform: translateY(-120vh) scale(1.4); opacity: 0; }
-    }
-  </style>
+/* Correct/Wrong button styles */
+.correct { background: #4caf50 !important; color: white; }
+.wrong { background: #f44336 !important; color: white; }
+</style>
 </head>
 <body>
+<h1> Dont be bored 😏</h1>
+<p>Let’s see how well you know me 👀</p>
 
-  <!-- HERO -->
-  <section id="hero">
-    <h1>Happy Birthday My Love 🎂</h1>
-    <div class="heart">❤️</div>
-    <p>Today is all about celebrating YOU — the girl who makes my world brighter every single day.</p>
-    <button onclick="nextSection(1)">Start the Surprise 💝</button>
-  </section>
+<div class="card">
+    <h2>look at the ki head</h2>
+    <img src="https://files.catbox.moe/i6qwax.jpg" alt="Her Image">
+</div>
 
-  <!-- STORY -->
-  <section id="sec1" style="display:none">
-    <div class="card">
-      <h2>From Dante 💌</h2>
-      <p>Meeting you changed my life in the most beautiful way. You are my calm, my happiness, and my favorite place to be.</p>
-      <button onclick="nextSection(2)">Continue ✨</button>
+<div class="card">
+    <h2>Ok Laila, lets see if u know me 🎯</h2>
+    <p id="question"></p>
+    <div id="options"></div>
+    <p id="result"></p>
+    <div class="progress">
+        <div class="progress-bar" id="bar"></div>
     </div>
-  </section>
+</div>
 
-  <!-- QUIZ 1 -->
-  <section id="sec2" style="display:none">
-    <div class="card">
-      <h2>Love Quiz 💕</h2>
-      <p>How much does Dante love you?</p>
-      <button class="quiz-btn" onclick="quizAnswer('Correct 😍 Infinity & beyond!')">More than words</button>
-      <button class="quiz-btn" onclick="quizAnswer('Wrong 😘 Try again!')">A normal amount</button>
-      <button class="quiz-btn" onclick="quizAnswer('Correct 😍 Infinity & beyond!')">To the moon & back</button>
-    </div>
-  </section>
+<div class="card hidden" id="finalCard">
+    <h2>Final Result 😈</h2>
+    <p id="finalText"></p>
+</div>
 
-  <!-- QUIZ 2 -->
-  <section id="sec3" style="display:none">
-    <div class="card">
-      <h2>Just One More 😏</h2>
-      <p>Who owns Dante’s heart?</p>
-      <button class="quiz-btn" onclick="quizAnswer('Always YOU ❤️')">You</button>
-      <button class="quiz-btn" onclick="quizAnswer('Nice try 😆')">Food</button>
-      <button class="quiz-btn" onclick="quizAnswer('Nope 😜')">Sleep</button>
-    </div>
-  </section>
+<script>
+let score = 0;
+let step = 0;
 
-  <!-- FINAL -->
-  <section id="sec4" style="display:none">
-    <div class="card">
-      <h2>You Made It 💖</h2>
-      <p>I hope this surprise made you smile. I promise to keep loving you, choosing you, and standing by you — always.</p>
-      <h2>Happy Birthday My Queen 👑</h2>
-      <p>Forever yours,<br><strong>Dante ❤️</strong></p>
-      <button onclick="finalSurprise()">Final Surprise 🎁</button>
-    </div>
-  </section>
+const questions = [
+    { q: "whats my name bby garl😁 ?", options: ["daddy 😏", "mr. nonchalant 😎", "mr.handsome 💀", "all 😂"], correct: 1 },
+    { q: "if u know me wat are the common words i say?", options: ["Darling 😈", "stupid 🔥", "nonchalant 🤝", "f*ck you 🥵"], correct: 1 },
+    { q: "whats my name 🫠?", options: ["Dante", "Danie 🗿", "Daniel", "mr. diih"], correct: 0 },
+    { q: "What do i think u are ?", options: ["homegirl 😤", "girlfriend 😎", "chick 💀", " my love"], correct: 0 },
+    { q: "what would i do if u disappeared?", options: ["cry 😂", "call you 😐", "thank God 🤣", "Nothing"], correct: 2 },
+    { q: "what made me like u?", options: ["u funny🎭", "jus like u for u 🎬", "sex 💀", "i also dont know"], correct: 1 }
+];
 
-  <footer>Made with endless love ❤️ by Dante</footer>
+function loadQuestion() {
+    document.getElementById("question").innerHTML = questions[step].q;
+    let optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
 
-  <script>
-    let current = 0;
+    questions[step].options.forEach((opt, index) => {
+        let btn = document.createElement("button");
+        btn.innerHTML = opt;
+        btn.onclick = () => answer(index, btn);
+        optionsDiv.appendChild(btn);
+    });
+}
 
-    function nextSection(n) {
-      document.querySelectorAll('section')[current].style.display = 'none';
-      document.getElementById('sec' + n).style.display = 'flex';
-      current = n;
+function answer(choice, btn) {
+    let result = document.getElementById("result");
+    let bar = document.getElementById("bar");
+    let buttons = document.querySelectorAll("#options button");
+
+    // Disable all buttons
+    buttons.forEach(b => b.disabled = true);
+
+    if (choice === questions[step].correct) {
+        score++;
+        btn.classList.add("correct");
+        result.innerHTML = "Correct 😂";
+    } else {
+        btn.classList.add("wrong");
+        buttons[questions[step].correct].classList.add("correct"); // highlight correct
+        result.innerHTML = `i dont know y u r stupid 😭 <br> Correct answer: <strong>${questions[step].options[questions[step].correct]}</strong>`;
     }
 
-    function quizAnswer(msg) {
-      alert(msg);
-      if (current === 2) nextSection(3);
-      else if (current === 3) nextSection(4);
+    step++;
+    bar.style.width = ((step / questions.length) * 100) + "%";
+
+    setTimeout(() => {
+        result.innerHTML = "";
+        if (step < questions.length) {
+            loadQuestion();
+        } else {
+            showFinal();
+        }
+    }, 2500);
+}
+
+function showFinal() {
+    document.getElementById("finalCard").classList.remove("hidden");
+    let text = "";
+    if (score === questions.length) {
+        text = "Damn 😳 you know everything!";
+    } else if (score >= 3) {
+        text = "Thats y i like u bby garl 😏";
+    } else {
+        text = "i didnt know u r this dumb";
     }
+    document.getElementById("finalText").innerHTML = text;
+}
 
-    function finalSurprise() {
-      alert('I love you endlessly. Happy Birthday ❤️ — From Dante');
-    }
-
-    function createHeart() {
-      const h = document.createElement('div');
-      h.className = 'floating-heart';
-      h.innerText = '❤️';
-      h.style.left = Math.random() * 100 + 'vw';
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 6500);
-    }
-
-    setInterval(createHeart, 600);
-  </script>
-
+loadQuestion();
+</script>
 </body>
-</html>
+  </html>
