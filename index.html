@@ -1,192 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Just for you 😈</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Tabie 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet"/>
 <style>
-body {
-    background: radial-gradient(circle at top, #1e0033, #000);
-    color: #f5f5f5;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: center;
-    padding: 20px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#ff4d8d;--hot:#ff1f6b;--peach:#ffb347;
+  --lavender:#b57bee;--mint:#2ecc71;--bg:#fff5f9;
+  --dark:#2d0a1e;--card:#fff;
 }
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden;cursor:none}
 
-h1 {
-    color: #ff4dff;
-    text-shadow: 0 0 15px #ff4dff;
-    animation: pulse 2s infinite;
+/* ===== CURSOR ===== */
+#cur{position:fixed;width:22px;height:22px;background:var(--pink);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .08s,width .2s,height .2s;mix-blend-mode:multiply}
+#cur.big{width:50px;height:50px}
+
+/* ===== LOCK SCREEN ===== */
+#lock{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#1a0a2e 0%,#3d0f5e 50%,#1a0a2e 100%);overflow:hidden;transition:opacity .9s,transform .9s}
+#lock.out{opacity:0;transform:scale(1.15);pointer-events:none}
+.stars{position:absolute;inset:0;pointer-events:none}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle linear infinite}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.lock-emoji{font-size:5rem;animation:spin 3s linear infinite;display:block;margin-bottom:.5rem}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+.lock-h{font-family:'Pacifico',cursive;font-size:clamp(1.8rem,6vw,3rem);color:#ff9de2;text-shadow:0 0 30px #ff4d8d88;margin-bottom:.3em}
+.lock-sub{color:#c9a0ff;font-size:1rem;font-weight:600;margin-bottom:2rem}
+.digits{display:flex;gap:12px;margin-bottom:1.2rem}
+.dig{width:54px;height:64px;border-radius:14px;border:2px solid #6d28d9;background:rgba(255,255,255,.08);color:white;font-size:2rem;font-weight:900;text-align:center;outline:none;transition:border-color .2s,background .2s}
+.dig:focus{border-color:#ff4d8d;background:rgba(255,77,141,.15)}
+.hint{color:#9f75c4;font-size:.85rem;margin-bottom:1.5rem}
+.hint b{color:#ff9de2}
+.open-btn{background:linear-gradient(135deg,#ff4d8d,#b57bee);color:white;border:none;border-radius:50px;padding:14px 44px;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 0 30px #ff4d8d66;transition:transform .2s,box-shadow .2s}
+.open-btn:hover{transform:scale(1.06);box-shadow:0 0 50px #ff4d8daa}
+.err{color:#ff7eb6;font-size:.9rem;margin-top:.8rem;height:1.2em;transition:opacity .3s}
+
+/* ===== MAIN ===== */
+#main{display:none;flex-direction:column;align-items:center;padding:0 0 100px}
+#main.on{display:flex}
+
+/* ===== HERO ===== */
+.hero{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:linear-gradient(160deg,#fff0f9 0%,#f3e8ff 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 20%,#ffb34733 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,#ff4d8d22 0%,transparent 50%)}
+
+/* ===== PHOTO FRAME ===== */
+/* 👇👇👇 PASTE YOUR PHOTO URL OR BASE64 BELOW 👇👇👇 */
+/* To use a photo: replace "YOUR_PHOTO_URL_HERE" with your image path or URL */
+/* Example: --photo: url('tabie.jpg'); */
+/* Or drag-drop a photo file into the same folder as this HTML file and use: --photo: url('yourfile.jpg'); */
+:root { --photo: url('YOUR_PHOTO_URL_HERE'); }
+
+.photo-frame{
+  width:200px;height:200px;border-radius:50%;
+  background:var(--photo) center/cover no-repeat, linear-gradient(135deg,#ffb347,#ff4d8d,#b57bee);
+  border:5px solid white;
+  box-shadow:0 0 0 6px #ff4d8d55, 0 20px 60px rgba(255,77,141,.35);
+  margin-bottom:28px;
+  animation:floatBob 3s ease-in-out infinite;
+  position:relative;cursor:pointer;
+  transition:transform .3s
 }
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.photo-frame:hover{transform:scale(1.08) rotate(3deg)}
+.photo-frame .photo-overlay{
+  position:absolute;inset:0;border-radius:50%;
+  background:rgba(255,77,141,0);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2.5rem;opacity:0;
+  transition:opacity .3s,background .3s
 }
-
-.card {
-    background: rgba(255,255,255,0.07);
-    backdrop-filter: blur(10px);
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 20px;
-    width: 85%;
-    box-shadow: 0 0 20px rgba(255,77,255,0.3);
-    transition: transform 0.3s;
+.photo-frame:hover .photo-overlay{opacity:1;background:rgba(255,77,141,.2)}
+/* If no photo set, show placeholder emoji */
+.photo-placeholder{
+  width:200px;height:200px;border-radius:50%;
+  background:linear-gradient(135deg,#ffb347,#ff4d8d,#b57bee);
+  border:5px solid white;
+  box-shadow:0 0 0 6px #ff4d8d55,0 20px 60px rgba(255,77,141,.35);
+  margin-bottom:28px;font-size:5rem;
+  display:flex;align-items:center;justify-content:center;
+  animation:floatBob 3s ease-in-out infinite;
+  cursor:pointer;transition:transform .3s
 }
+.photo-placeholder:hover{transform:scale(1.08) rotate(3deg)}
+@keyframes floatBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
-.card:hover {
-    transform: translateY(-5px) scale(1.02);
+.hero-name{font-family:'Pacifico',cursive;font-size:clamp(3.5rem,12vw,7rem);background:linear-gradient(135deg,#ff1f6b,#b57bee,#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.2em}
+.hero-tag{font-family:'Caveat',cursive;font-size:1.8rem;color:#a0527a;margin-bottom:2rem}
+.scroll-hint{font-size:.9rem;color:#c084a8;animation:bounce 1.5s infinite;margin-top:1rem}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ===== SECTIONS ===== */
+.section{width:100%;max-width:600px;padding:60px 20px 0}
+.sec-title{font-family:'Pacifico',cursive;font-size:clamp(1.6rem,5vw,2.4rem);color:var(--hot);margin-bottom:8px;text-align:center}
+.sec-sub{text-align:center;color:#a0527a;font-weight:600;margin-bottom:28px;font-size:.95rem}
+
+/* ===== MOOD DETECTOR ===== */
+.mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.mood-btn{background:white;border:2px solid #ffd6ee;border-radius:18px;padding:18px 10px;font-size:2rem;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;text-align:center;font-family:'Nunito',sans-serif}
+.mood-btn span{display:block;font-size:.75rem;font-weight:700;color:#a0527a;margin-top:4px}
+.mood-btn:hover{transform:scale(1.1);border-color:var(--pink);box-shadow:0 8px 20px rgba(255,77,141,.2)}
+.mood-btn.active{border-color:var(--hot);background:#fff0f9;transform:scale(1.05)}
+.mood-result{background:white;border-radius:20px;padding:24px;border:2px solid #ffd6ee;text-align:center;min-height:100px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;font-weight:700;color:var(--dark);line-height:1.5;transition:all .4s}
+.mood-result.pop{animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* ===== ROAST MACHINE ===== */
+.roast-card{background:linear-gradient(135deg,#fff5f0,#fff0f9);border:2px solid #ffd6cc;border-radius:24px;padding:30px;text-align:center}
+.roast-display{font-family:'Caveat',cursive;font-size:1.5rem;color:var(--dark);min-height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;line-height:1.4;padding:0 10px}
+.roast-btn{background:linear-gradient(135deg,#ff6b35,#ff4d8d);color:white;border:none;border-radius:50px;padding:13px 32px;font-size:1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 6px 20px rgba(255,77,141,.3);transition:transform .2s;margin:6px}
+.roast-btn:hover{transform:scale(1.06)}
+.sweet-btn{background:linear-gradient(135deg,#b57bee,#ff4d8d)}
+.roast-tag{display:inline-block;background:#fff0f9;border:1.5px solid #ffd6ee;border-radius:20px;padding:4px 14px;font-size:.8rem;font-weight:700;color:#c0527a;margin-top:12px}
+
+/* ===== CLICK BATTLE ===== */
+.battle-wrap{background:white;border-radius:24px;border:2px solid #ffe0ef;padding:28px;text-align:center}
+.battle-score{font-family:'Pacifico',cursive;font-size:3.5rem;color:var(--hot);margin:10px 0;transition:transform .1s}
+.battle-score.hit{transform:scale(1.3)}
+.battle-btn{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#ff4d8d,#b57bee);border:none;font-size:3rem;cursor:pointer;box-shadow:0 8px 30px rgba(255,77,141,.4);transition:transform .1s,box-shadow .1s;position:relative;overflow:hidden}
+.battle-btn:active{transform:scale(.93);box-shadow:0 4px 16px rgba(255,77,141,.3)}
+.battle-msg{margin-top:14px;font-size:1rem;font-weight:700;color:#a0527a;min-height:1.5em}
+.battle-bar-wrap{background:#ffe0ef;border-radius:50px;height:20px;margin:14px 0 6px;overflow:hidden}
+.battle-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--pink),var(--lavender));border-radius:50px;transition:width .3s ease}
+.battle-label{font-size:.8rem;color:#c084a8;font-weight:600}
+
+/* ===== YES/NO GAME ===== */
+.yn-card{background:white;border-radius:24px;border:2px solid #e8d5ff;padding:32px;text-align:center}
+.yn-q{font-size:1.2rem;font-weight:800;margin-bottom:22px;min-height:2em;line-height:1.4}
+.yn-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.yn-yes{background:linear-gradient(135deg,#43e97b,#38f9d7);color:white;border:none;border-radius:50px;padding:14px 40px;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 6px 20px rgba(67,233,123,.3);transition:transform .2s}
+.yn-no{background:white;color:var(--hot);border:2.5px solid var(--hot);border-radius:50px;padding:14px 40px;font-size:1.1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;transition:transform .2s, all .3s;position:relative}
+.yn-yes:hover{transform:scale(1.06)}
+.yn-score{font-size:1rem;color:#a0527a;margin-top:16px;font-weight:700}
+
+/* ===== PHOTO GALLERY VIBES ===== */
+.gallery-frame{
+  width:100%;background:white;border-radius:24px;border:2px solid #ffd6ee;
+  padding:28px;text-align:center
 }
-
-button {
-    background: linear-gradient(45deg, #ff4dff, #00ffff);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-    color: black;
-    font-weight: bold;
-    transition: 0.3s;
+.gallery-photo{
+  width:260px;height:260px;border-radius:20px;
+  /* 👇 GALLERY PHOTO — replace with your photo URL */
+  background:var(--photo) center/cover no-repeat, linear-gradient(135deg,#ffb347 0%,#ff4d8d 50%,#b57bee 100%);
+  margin:0 auto 16px;
+  box-shadow:0 12px 40px rgba(255,77,141,.25);
+  animation:floatBob 4s ease-in-out infinite;
+  position:relative;overflow:hidden;
+  border:4px solid white
 }
+.gallery-sticker{position:absolute;font-size:2rem;animation:wiggle 2s infinite}
+.gallery-caption{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--dark);margin-bottom:8px}
+.gallery-nav{display:flex;gap:12px;justify-content:center;margin-top:12px}
+.g-btn{background:#fff0f9;border:2px solid #ffd6ee;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;transition:transform .2s,background .2s}
+.g-btn:hover{background:var(--pink);transform:scale(1.1)}
 
-button:hover {
-    transform: scale(1.15);
-    box-shadow: 0 0 15px #00ffff;
-}
+/* ===== LOVE LETTER ===== */
+.letter-wrap{background:linear-gradient(135deg,#fff8f0,#fff0f9);border-radius:24px;border:2px dashed #ffb347;padding:36px 28px;position:relative}
+.letter-wrap::before{content:'💌';position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:2.5rem;background:var(--bg);padding:0 8px}
+.letter-text{font-family:'Caveat',cursive;font-size:1.3rem;line-height:1.8;color:#3d1c3e;margin-bottom:20px}
+.letter-sig{font-family:'Pacifico',cursive;font-size:1.5rem;color:var(--hot);text-align:right}
+.letter-btn{display:block;margin:20px auto 0;background:linear-gradient(135deg,#ffb347,#ff4d8d);color:white;border:none;border-radius:50px;padding:13px 32px;font-size:1rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 6px 20px rgba(255,77,141,.3);transition:transform .2s}
+.letter-btn:hover{transform:scale(1.06)}
 
-img {
-    width: 220px;
-    border-radius: 20px;
-    margin-top: 10px;
-    box-shadow: 0 0 15px #ff4dff;
-    transition: 0.3s;
-}
+/* ===== FINAL ===== */
+.final{background:linear-gradient(160deg,#1a0a2e,#3d0f5e);border-radius:28px;padding:50px 30px;text-align:center;position:relative;overflow:hidden;margin:60px 20px 0;width:calc(100% - 40px);max-width:560px}
+.final::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,#ff4d8d22,transparent 60%)}
+.final-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(#b57bee44,transparent);top:-50px;right:-50px;animation:pulse 3s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.final-emoji{font-size:4rem;display:block;margin-bottom:12px;animation:bounce 2s infinite}
+.final-h{font-family:'Pacifico',cursive;font-size:clamp(2rem,7vw,3.5rem);color:#ff9de2;text-shadow:0 0 40px #ff4d8d88;margin-bottom:.5em}
+.final-p{color:#ddb8f5;font-size:1.05rem;line-height:1.7;margin-bottom:28px;font-weight:600}
+.boom-btn{background:linear-gradient(135deg,#ff4d8d,#ffb347);color:white;border:none;border-radius:50px;padding:16px 44px;font-size:1.15rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 0 40px rgba(255,77,141,.5);transition:transform .2s}
+.boom-btn:hover{transform:scale(1.08)}
 
-img:hover {
-    transform: scale(1.1) rotate(-2deg);
-}
+/* ===== FLOATY HEARTS BG ===== */
+.hbg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.hf{position:absolute;animation:fup linear infinite;opacity:.4}
+@keyframes fup{from{transform:translateY(100vh) rotate(0)}to{transform:translateY(-10vh) rotate(360deg)}}
 
-.progress {
-    width: 80%;
-    background: #333;
-    border-radius: 20px;
-    margin: 10px auto;
-}
+/* confetti */
+.conf{position:fixed;pointer-events:none;z-index:9998;border-radius:2px;animation:cfall linear forwards}
+@keyframes cfall{0%{transform:translateY(-20px) rotate(0);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 
-.progress-bar {
-    height: 10px;
-    width: 0%;
-    background: linear-gradient(90deg, #ff4dff, #00ffff);
-    border-radius: 20px;
-    transition: width 0.5s;
-}
-
-.hidden { display: none; }
-
-/* Correct/Wrong button styles */
-.correct { background: #4caf50 !important; color: white; }
-.wrong { background: #f44336 !important; color: white; }
+/* ===== UTILS ===== */
+@keyframes wiggle{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .8s ease both}
 </style>
 </head>
 <body>
-<h1> Dont be bored 😏</h1>
-<p>Let’s see how well you know me 👀</p>
+<div id="cur"></div>
+<div class="hbg" id="hbg"></div>
 
-<div class="card">
-    <h2>look at the ki head</h2>
-    <img src="https://files.catbox.moe/i6qwax.jpg" alt="Her Image">
+<!-- ===== LOCK ===== -->
+<div id="lock">
+  <div class="stars" id="stars"></div>
+  <span class="lock-emoji">🔐</span>
+  <h1 class="lock-h">Hey Tabie… 👀</h1>
+  <p class="lock-sub">Someone made something special for you. Enter the secret code!</p>
+  <div class="digits">
+    <input class="dig" id="d0" maxlength="1" inputmode="numeric" type="text"/>
+    <input class="dig" id="d1" maxlength="1" inputmode="numeric" type="text"/>
+    <input class="dig" id="d2" maxlength="1" inputmode="numeric" type="text"/>
+    <input class="dig" id="d3" maxlength="1" inputmode="numeric" type="text"/>
+  </div>
+  <p class="hint">💡 Hint: it's <b>1234</b> lol 😂 (very secure)</p>
+  <button class="open-btn" onclick="tryUnlock()">Open My Surprise 💝</button>
+  <p class="err" id="errMsg"></p>
 </div>
 
-<div class="card">
-    <h2>Ok Laila, lets see if u know me 🎯</h2>
-    <p id="question"></p>
-    <div id="options"></div>
-    <p id="result"></p>
-    <div class="progress">
-        <div class="progress-bar" id="bar"></div>
+<!-- ===== MAIN ===== -->
+<div id="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <!--
+    =====================================================
+    📸 HOW TO ADD TABIE'S PHOTO:
+    Option 1 (easiest): Put her photo file (e.g. tabie.jpg) 
+      in the same folder as this HTML file, then find
+      the line below that says --photo: url('YOUR_PHOTO_URL_HERE')
+      and change it to --photo: url('tabie.jpg');
+    
+    Option 2: Use an online photo link:
+      --photo: url('https://yourlink.com/photo.jpg');
+    =====================================================
+    -->
+    <div class="photo-placeholder" id="heroPhoto" onclick="photoWiggle(this)" title="Click me!">
+      🌸
     </div>
-</div>
 
-<div class="card hidden" id="finalCard">
-    <h2>Final Result 😈</h2>
-    <p id="finalText"></p>
-</div>
+    <h1 class="hero-name">Tabie!</h1>
+    <p class="hero-tag">you've been personally attacked with love 💕</p>
+    <p class="scroll-hint">scroll down for trouble ↓ 😈</p>
+  </div>
 
-<script>
-let score = 0;
-let step = 0;
+  <!-- 1. MOOD DETECTOR -->
+  <div class="section fu">
+    <h2 class="sec-title">😤 Tabie's Mood Detector</h2>
+    <p class="sec-sub">Be honest… which one are you right now?</p>
+    <div class="mood-grid" id="moodGrid">
+      <button class="mood-btn" onclick="setMood(this,'happy')">😂<span>Laughing</span></button>
+      <button class="mood-btn" onclick="setMood(this,'cute')">🥺<span>Soft Hours</span></button>
+      <button class="mood-btn" onclick="setMood(this,'hungry')">🍕<span>Hungry</span></button>
+      <button class="mood-btn" onclick="setMood(this,'sleepy')">😴<span>Sleepy</span></button>
+      <button class="mood-btn" onclick="setMood(this,'annoyed')">😒<span>Annoyed</span></button>
+      <button class="mood-btn" onclick="setMood(this,'inlove')">😍<span>In Love</span></button>
+    </div>
+    <div class="mood-result" id="moodResult">👆 Pick your mood, queen!</div>
+  </div>
 
-const questions = [
-    { q: "whats my name bby garl😁 ?", options: ["daddy 😏", "mr. nonchalant 😎", "mr.handsome 💀", "all 😂"], correct: 1 },
-    { q: "if u know me wat are the common words i say?", options: ["Darling 😈", "stupid 🔥", "nonchalant 🤝", "f*ck you 🥵"], correct: 1 },
-    { q: "whats my name 🫠?", options: ["Dante", "Danie 🗿", "Daniel", "mr. diih"], correct: 0 },
-    { q: "What do i think u are ?", options: ["homegirl 😤", "girlfriend 😎", "chick 💀", " my love"], correct: 0 },
-    { q: "what would i do if u disappeared?", options: ["cry 😂", "call you 😐", "thank God 🤣", "Nothing"], correct: 2 },
-    { q: "what made me like u?", options: ["u funny🎭", "jus like u for u 🎬", "sex 💀", "i also dont know"], correct: 1 }
-];
+  <!-- 2. ROAST MACHINE -->
+  <div class="section fu">
+    <h2 class="sec-title">🔥 The Roast Machine</h2>
+    <p class="sec-sub">Powered by the truth™ and zero chill</p>
+    <div class="roast-card">
+      <div class="roast-display" id="roastDisplay">"Press the button… if you dare 😈"</div>
+      <div>
+        <button class="roast-btn" onclick="getRoast()">Roast Me 🔥</button>
+        <button class="roast-btn sweet-btn" onclick="getSweet()">Say Something Nice 🥰</button>
+      </div>
+      <div class="roast-tag" id="roastTag">choose your fate</div>
+    </div>
+  </div>
 
-function loadQuestion() {
-    document.getElementById("question").innerHTML = questions[step].q;
-    let optionsDiv = document.getElementById("options");
-    optionsDiv.innerHTML = "";
+  <!-- 3. TAP BATTLE -->
+  <div class="section fu">
+    <h2 class="sec-title">👇 Tap Challenge</h2>
+    <p class="sec-sub">How much do you love me? Tap to prove it!</p>
+    <div class="battle-wrap">
+      <div class="battle-score" id="tapScore">0</div>
+      <p style="color:#c084a8;font-size:.85rem;margin-bottom:12px">taps</p>
+      <button class="battle-btn" id="tapBtn" onclick="doTap()">💖</button>
+      <div class="battle-bar-wrap"><div class="battle-bar" id="tapBar"></div></div>
+      <p class="battle-label" id="tapLabel">Tap that button!</p>
+      <p class="battle-msg" id="tapMsg"></p>
+    </div>
+  </div>
 
-    questions[step].options.forEach((opt, index) => {
-        let btn = document.createElement("button");
-        btn.innerHTML = opt;
-        btn.onclick = () => answer(index, btn);
-        optionsDiv.appendChild(btn);
-    });
-}
+  <!-- 4. YES/NO GAME -->
+  <div class="section fu">
+    <h2 class="sec-title">🎮 The Yes/No Challenge</h2>
+    <p class="sec-sub">Answering "No" is NOT allowed 😂</p>
+    <div class="yn-card">
+      <p class="yn-q" id="ynQ">Press start to play!</p>
+      <div class="yn-btns">
+        <button class="yn-yes" id="ynYes" onclick="ynAnswer(true)">Yes 💚</button>
+        <button class="yn-no" id="ynNo" onclick="ynAnswer(false)">No 😅</button>
+      </div>
+      <p class="yn-score" id="ynScore"></p>
+    </div>
+  </div>
 
-function answer(choice, btn) {
-    let result = document.getElementById("result");
-    let bar = document.getElementById("bar");
-    let buttons = document.querySelectorAll("#options button");
+  <!-- 5. PHOTO SECTION -->
+  <div class="section fu">
+    <h2 class="sec-title">📸 You > Everyone Else</h2>
+    <p class="sec-sub">Scientific fact, not up for debate</p>
+    <div class="gallery-frame">
+      <!--
+      =====================================================
+      📸 GALLERY PHOTO:
+      Same as hero photo — put her photo in same folder
+      and update the CSS --photo variable at the top.
+      Both photos will update automatically!
+      =====================================================
+      -->
+      <div class="gallery-photo" id="galleryPhoto">
+        <div class="gallery-sticker" style="top:10px;right:10px">✨</div>
+        <div class="gallery-sticker" style="bottom:10px;left:10px;animation-delay:.5s">💖</div>
+        <!-- Emoji fallback when no photo is set -->
+        <div id="galleryEmoji" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#ffb347,#ff4d8d,#b57bee)">🌸</div>
+      </div>
+      <div class="gallery-caption" id="galCaption">"The main character, always 🎬"</div>
+      <div class="gallery-nav">
+        <button class="g-btn" onclick="prevCaption()">◀</button>
+        <button class="g-btn" onclick="nextCaption()">▶</button>
+      </div>
+    </div>
+  </div>
 
-    // Disable all buttons
-    buttons.forEach(b => b.disabled = true);
-
-    if (choice === questions[step].correct) {
-        score++;
-        btn.classList.add("correct");
-        result.innerHTML = "Correct 😂";
-    } else {
-        btn.classList.add("wrong");
-        buttons[questions[step].correct].classList.add("correct"); // highlight correct
-        result.innerHTML = `i dont know y u r stupid 😭 <br> Correct answer: <strong>${questions[step].options[questions[step].correct]}</strong>`;
-    }
-
-    step++;
-    bar.style.width = ((step / questions.length) * 100) + "%";
-
-    setTimeout(() => {
-        result.innerHTML = "";
-        if (step < questions.length) {
-            loadQuestion();
-        } else {
-            showFinal();
-        }
-    }, 2500);
-}
-
-function showFinal() {
-    document.getElementById("finalCard").classList.remove("hidden");
-    let text = "";
-    if (score === questions.length) {
-        text = "Damn 😳 you know everything!";
-    } else if (score >= 3) {
-        text = "Thats y i like u bby garl 😏";
-    } else {
-        text = "i didnt know u r this dumb";
-    }
-    document.getElementById("finalText").innerHTML = text;
-}
-
-loadQuestion();
-</script>
-</body>
-  </html>
+  <!-- 6. LOVE LETTER -->
+  <div class="section fu">
+    <h2 class="sec-title">💌 A Letter For You</h2>
+    <p class="sec-sub">No cringe… okay maybe a little 😭</p>
+    <div class="letter-wrap">
+      <p class="letter-text" id="letterText">
+        Dear Tabie,<br><br>
+        I just want to say… you are absolutely ridiculous. 😂<br><br>
+        Like, who gave you the right to be that cute AND funny AND smart all at the same time? That's
